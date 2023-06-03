@@ -11,6 +11,14 @@ class Electron:
         self.a_y = a_y
         self.a_z = a_z
 
+    def coalition(self, v_x=0, v_y=0, v_z=0):
+        self.v_x = v_x
+        self.v_y = v_y
+        self.v_z = v_z
+
+    def location(self):
+        return self.x, self.y, self.z
+
     def update_location(self, t):
         self.x = self.x + self.v_x * t + 0.5 * self.a_x * t**2
         self.y = self.y + self.v_y * t + 0.5 * self.a_y * t**2
