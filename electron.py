@@ -11,6 +11,9 @@ class Electron:
         self.a_y = a_y
         self.a_z = a_z
 
+    def dist(self, other):
+        return ((self.x - other.x)**2 + (self.y - other.y)**2 + (self.z - other.z)**2)**0.5
+
     def coalition(self, v_x=0, v_y=0, v_z=0):
         self.v_x = v_x
         self.v_y = v_y
@@ -18,6 +21,11 @@ class Electron:
 
     def location(self):
         return self.x, self.y, self.z
+
+    def update_acceleration(self, ax, ay, az):
+        self.a_x = ax
+        self.a_y = ay
+        self.a_z = az
 
     def update_location(self, t):
         self.x = self.x + self.v_x * t + 0.5 * self.a_x * t**2
