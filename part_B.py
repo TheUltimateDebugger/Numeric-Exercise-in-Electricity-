@@ -21,6 +21,12 @@ def update_field(electrons):
                 d = e1.dist(e2)
                 e1.update_acceleration(K*(e1.x-e2.x)*Q**2/d/M, K*(e1.y-e2.y)*Q**2/d/M, K*(e1.z-e2.z)*Q**2/d/M)
 
+def fix_locations(electrons):
+    for e in electrons:
+        if electron_is_outside(e):
+            e.return_to_sphere()
+
+
 def simulate_B():
     locations = []
     electrons = []

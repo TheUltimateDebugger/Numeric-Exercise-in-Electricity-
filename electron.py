@@ -11,6 +11,9 @@ class Electron:
         self.a_y = a_y
         self.a_z = a_z
 
+    def dist_from_zero(self):
+        return (self.x**2 + self.y**2 + self.z**2)**0.5
+
     def dist(self, other):
         return ((self.x - other.x)**2 + (self.y - other.y)**2 + (self.z - other.z)**2)**0.5
 
@@ -34,6 +37,12 @@ class Electron:
 
     def reset_velocity(self):
         self.update_velocity(0, 0, 0)
+
+    def return_to_sphere(self, r):
+        self.x *= r/self.dist_from_zero()
+        self.y *= r/self.dist_from_zero()
+        self.z *= r/self.dist_from_zero()
+
 
     def update_location(self, t):
         self.x = self.x + self.v_x * t + 0.5 * self.a_x * t**2
