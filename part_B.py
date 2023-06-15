@@ -31,6 +31,7 @@ def simulate_B():
         update_field(electrons)
         for e in electrons:
             e.update_location(T)
+            e.reset_velocity()
         temp = []
         for e in electrons:
             temp.append((e.x, e.y, e.z))

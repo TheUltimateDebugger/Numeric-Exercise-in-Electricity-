@@ -27,6 +27,14 @@ class Electron:
         self.a_y = ay
         self.a_z = az
 
+    def update_velocity(self, vx, vy, vz):
+        self.v_x = vx
+        self.v_y = vy
+        self.v_z = vz
+
+    def reset_velocity(self):
+        self.update_velocity(0, 0, 0)
+
     def update_location(self, t):
         self.x = self.x + self.v_x * t + 0.5 * self.a_x * t**2
         self.y = self.y + self.v_y * t + 0.5 * self.a_y * t**2
