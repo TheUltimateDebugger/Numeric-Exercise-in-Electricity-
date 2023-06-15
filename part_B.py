@@ -3,7 +3,10 @@ import random
 import numpy as np
 from matplotlib import pyplot as plt
 
+import math
+import numpy as np
 from electron import Electron
+
 
 R = 1
 N = 200
@@ -50,6 +53,35 @@ def simulate_B():
             temp.append((e.x, e.y, e.z))
         locations.append(temp)
     return locations
+
+
+def is_in(electron):
+    """
+    :param electron: tuple of the location
+    :return: true if in else false
+    """
+    radius = electron.dist_from_zero()
+    if radius <= R:
+        return True
+    else:
+        return False
+
+
+def generate_sphire():
+    x = np.random.uniform(-R, R)
+    y = np.random.uniform(-R, R)
+    z = np.random.uniform(-R, R)
+    electron = Electron(x, y, z)
+    while not is_in(electron):
+        x = np.random.uniform(-R, R)
+        y = np.random.uniform(-R, R)
+        z = np.random.uniform(-R, R)
+        electron = Electron(x, y, z)
+    return electron
+
+
+
+
 
 
 def draw_b(result):

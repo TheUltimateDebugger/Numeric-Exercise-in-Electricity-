@@ -17,6 +17,7 @@ class Electron:
     def dist(self, other):
         return ((self.x - other.x)**2 + (self.y - other.y)**2 + (self.z - other.z)**2)**0.5
 
+
     def coalition(self, v_x=0, v_y=0, v_z=0):
         self.v_x = v_x
         self.v_y = v_y
