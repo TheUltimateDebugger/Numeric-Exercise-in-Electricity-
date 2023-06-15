@@ -13,7 +13,7 @@ N = 200
 # s
 T = 10 ** -3
 # T times
-LENGTH = 500
+LENGTH = 100
 # colon
 Q = -1.602176634 * 10 ** (-19)
 # Kg
@@ -27,9 +27,9 @@ def update_field(electrons):
         for e2 in electrons:
             if e1 != e2 and e1.dist(e2) > 0:
                 d = e1.dist(e2)
-                e1.update_acceleration(K * (e1.x - e2.x)/d * Q ** 2 / d**2 / M,
-                                       K * (e1.y - e2.y)/d * Q ** 2 / d**2 / M,
-                                       K * (e1.z - e2.z)/d * Q ** 2 / d**2 / M)
+                e1.update_acceleration(e1.a_x + K * (e1.x - e2.x)/d * Q ** 2 / d**2 / M,
+                                       e1.a_y + K * (e1.y - e2.y)/d * Q ** 2 / d**2 / M,
+                                       e1.a_z + K * (e1.z - e2.z)/d * Q ** 2 / d**2 / M)
 
 
 def simulate_B():
@@ -82,7 +82,9 @@ def generate_electron():
         x = np.random.uniform(-R, R)
         y = np.random.uniform(-R, R)
         z = np.random.uniform(-R, R)
-        electron = Electron(x, y, z)
+        electron.x = x
+        electron.y = y
+        electron.z = z
     return electron
 
 
@@ -95,12 +97,13 @@ def draw_b(result):
     for e in result:
         if (e[0]**2 + e[1]**2 + e[2]**2)**0.5 >= R:
             outside_e.append(e)
-        else:
+        elif e != result[N-1]:
             inside_e.append(e)
     if outside_e:
         ax.scatter3D(list(zip(*outside_e))[0], list(zip(*outside_e))[1], list(zip(*outside_e))[2], color='green')
     if inside_e:
         ax.scatter3D(list(zip(*inside_e))[0], list(zip(*inside_e))[1], list(zip(*inside_e))[2], color='red')
+    ax.scatter3D(result[N-1][0], result[N-1][1], result[N-1][2], color='cyan')
 
     u, v = np.mgrid[0:2 * np.pi:10j, 0:np.pi:10j]
     x = np.cos(u) * np.sin(v) * R
