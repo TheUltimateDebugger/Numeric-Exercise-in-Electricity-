@@ -33,7 +33,7 @@ def update_field(electrons):
 
 def fix_locations(electrons):
     for e in electrons:
-        if electron_is_outside(e):
+        if is_in(e):
             e.return_to_sphere()
 
 
@@ -67,7 +67,7 @@ def is_in(electron):
         return False
 
 
-def generate_sphire():
+def generate_sphere():
     x = np.random.uniform(-R, R)
     y = np.random.uniform(-R, R)
     z = np.random.uniform(-R, R)
@@ -82,10 +82,7 @@ def generate_sphire():
 
 
 
-
-
 def draw_b(result):
-    fig = plt.figure()
     ax = plt.axes(projection='3d')
     ax.scatter3D(list(zip(*result))[0], list(zip(*result))[1], list(zip(*result))[2], cmap='Greens')
     u, v = np.mgrid[0:2 * np.pi:25j, 0:np.pi:25j]
