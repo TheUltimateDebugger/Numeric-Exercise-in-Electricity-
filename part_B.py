@@ -11,9 +11,9 @@ from electron import Electron
 R = 1
 N = 200
 # s
-T = 10 ** -15
+T = 10 ** -3
 # T times
-LENGTH = 100
+LENGTH = 500
 # colon
 Q = -1.602176634 * 10 ** (-19)
 # Kg
@@ -27,31 +27,37 @@ def update_field(electrons):
         for e2 in electrons:
             if e1 != e2 and e1.dist(e2) > 0:
                 d = e1.dist(e2)
-                e1.update_acceleration(K * (e1.x - e2.x) * Q ** 2 / d / M, K * (e1.y - e2.y) * Q ** 2 / d / M,
-                                       K * (e1.z - e2.z) * Q ** 2 / d / M)
-
-
-def fix_locations(electrons):
-    for e in electrons:
-        if is_in(e):
-            e.return_to_sphere()
+                e1.update_acceleration(K * (e1.x - e2.x)/d * Q ** 2 / d**2 / M,
+                                       K * (e1.y - e2.y)/d * Q ** 2 / d**2 / M,
+                                       K * (e1.z - e2.z)/d * Q ** 2 / d**2 / M)
 
 
 def simulate_B():
+    count = 0
     locations = []
     electrons = []
     for i in range(N):
-        e = Electron()
+        e = generate_electron()
         electrons.append(e)
+    temp = []
+    for e in electrons:
+        temp.append([e.x, e.y, e.z])
+    locations.append(temp)
     for i in range(LENGTH):
         update_field(electrons)
         for e in electrons:
             e.update_location(T)
+            if not is_in(e):
+                count += 1
+                e.return_to_sphere(R)
             e.reset_velocity()
+            e.reset_acceleration()
         temp = []
         for e in electrons:
-            temp.append((e.x, e.y, e.z))
+            temp.append([e.x, e.y, e.z])
         locations.append(temp)
+        # print("iteration: " + str(i))
+    print(count)
     return locations
 
 
@@ -67,7 +73,7 @@ def is_in(electron):
         return False
 
 
-def generate_sphere():
+def generate_electron():
     x = np.random.uniform(-R, R)
     y = np.random.uniform(-R, R)
     z = np.random.uniform(-R, R)
@@ -84,11 +90,23 @@ def generate_sphere():
 
 def draw_b(result):
     ax = plt.axes(projection='3d')
-    ax.scatter3D(list(zip(*result))[0], list(zip(*result))[1], list(zip(*result))[2], cmap='Greens')
-    u, v = np.mgrid[0:2 * np.pi:25j, 0:np.pi:25j]
+    outside_e = []
+    inside_e = []
+    for e in result:
+        if (e[0]**2 + e[1]**2 + e[2]**2)**0.5 >= R:
+            outside_e.append(e)
+        else:
+            inside_e.append(e)
+    if outside_e:
+        ax.scatter3D(list(zip(*outside_e))[0], list(zip(*outside_e))[1], list(zip(*outside_e))[2], color='green')
+    if inside_e:
+        ax.scatter3D(list(zip(*inside_e))[0], list(zip(*inside_e))[1], list(zip(*inside_e))[2], color='red')
+
+    u, v = np.mgrid[0:2 * np.pi:10j, 0:np.pi:10j]
     x = np.cos(u) * np.sin(v) * R
     y = np.sin(u) * np.sin(v) * R
     z = np.cos(v) * R
     ax.plot_wireframe(x, y, z, color="orange")
 
     plt.show()
+

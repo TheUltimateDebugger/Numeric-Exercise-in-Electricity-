@@ -1,4 +1,3 @@
-
 class Electron:
     def __init__(self, x=0, y=0, z=0, v_x=0, v_y=0, v_z=0, a_x=0, a_y=0, a_z=0):
         self.x = x
@@ -12,11 +11,10 @@ class Electron:
         self.a_z = a_z
 
     def dist_from_zero(self):
-        return (self.x**2 + self.y**2 + self.z**2)**0.5
+        return (self.x ** 2 + self.y ** 2 + self.z ** 2) ** 0.5
 
     def dist(self, other):
-        return ((self.x - other.x)**2 + (self.y - other.y)**2 + (self.z - other.z)**2)**0.5
-
+        return ((self.x - other.x) ** 2 + (self.y - other.y) ** 2 + (self.z - other.z) ** 2) ** 0.5
 
     def coalition(self, v_x=0, v_y=0, v_z=0):
         self.v_x = v_x
@@ -39,16 +37,18 @@ class Electron:
     def reset_velocity(self):
         self.update_velocity(0, 0, 0)
 
-    def return_to_sphere(self, r):
-        self.x *= r/self.dist_from_zero()
-        self.y *= r/self.dist_from_zero()
-        self.z *= r/self.dist_from_zero()
+    def reset_acceleration(self):
+        self.update_acceleration(0, 0, 0)
 
+    def return_to_sphere(self, r):
+        self.x *= r / self.dist_from_zero()
+        self.y *= r / self.dist_from_zero()
+        self.z *= r / self.dist_from_zero()
 
     def update_location(self, t):
-        self.x = self.x + self.v_x * t + 0.5 * self.a_x * t**2
-        self.y = self.y + self.v_y * t + 0.5 * self.a_y * t**2
-        self.z = self.z + self.v_z * t + 0.5 * self.a_z * t**2
+        self.x = self.x + self.v_x * t + 0.5 * self.a_x * t ** 2
+        self.y = self.y + self.v_y * t + 0.5 * self.a_y * t ** 2
+        self.z = self.z + self.v_z * t + 0.5 * self.a_z * t ** 2
         self.v_x = self.v_x + self.a_x * t
         self.v_y = self.v_y + self.a_y * t
         self.v_z = self.v_z + self.a_z * t
