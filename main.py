@@ -1,5 +1,5 @@
 from part_A import simulate, draw_graph, T
-from part_B import simulate_B
+from part_B import simulate_B, draw_b
 
 
 def get_avg_dist(n):
@@ -16,5 +16,7 @@ if __name__ == '__main__':
     # draw_graph(locations)
 
     locations2 = simulate_B()
+    draw_b(locations2)
     for l in locations2:
         print(str(l[0]) + ", " + str(l[1]) + ", " + str(l[2]))
+
