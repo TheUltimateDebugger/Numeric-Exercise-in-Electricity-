@@ -1,7 +1,7 @@
 import random
 
 import numpy as np
-from matplotlib import pyplot as plt
+from matplotlib import pyplot as plt, patches
 
 import math
 import numpy as np
@@ -15,13 +15,12 @@ T = 10 ** -3
 LENGTH = 200
 
 
-
-def simulate_B():
+def simulate_C():
     count = 0
     locations = []
     electrons = []
     for i in range(N):
-        e = generate_electron()
+        e = generate_electron_in_circle()
         electrons.append(e)
     temp = []
     for e in electrons:
@@ -57,42 +56,35 @@ def is_in(electron):
         return False
 
 
-def generate_electron():
+def generate_electron_in_circle():
     x = np.random.uniform(-R, R)
     y = np.random.uniform(-R, R)
-    z = np.random.uniform(-R, R)
+    z = 0
     electron = Electron(x, y, z)
     while not is_in(electron):
         x = np.random.uniform(-R, R)
         y = np.random.uniform(-R, R)
-        z = np.random.uniform(-R, R)
+        z = 0
         electron.x = x
         electron.y = y
         electron.z = z
     return electron
 
 
-
-
-def draw_b(result):
-    ax = plt.axes(projection='3d')
+def draw_c(result):
+    plt.figure(3)
+    ax = plt.subplot()
+    circle1 = patches.Circle((0,0), radius=R, color='orange', fill=False)
+    ax.add_patch(circle1)
     outside_e = []
     inside_e = []
     for e in result:
-        if (e[0]**2 + e[1]**2 + e[2]**2)**0.5 >= R:
+        if (e[0] ** 2 + e[1] ** 2 + e[2] ** 2) ** 0.5 >= R:
             outside_e.append(e)
         else:
             inside_e.append(e)
     if outside_e:
-        ax.scatter3D(list(zip(*outside_e))[0], list(zip(*outside_e))[1], list(zip(*outside_e))[2], color='green')
+        plt.scatter(list(zip(*outside_e))[0], list(zip(*outside_e))[1], color='green')
     if inside_e:
-        ax.scatter3D(list(zip(*inside_e))[0], list(zip(*inside_e))[1], list(zip(*inside_e))[2], color='red')
-
-    u, v = np.mgrid[0:2 * np.pi:10j, 0:np.pi:10j]
-    x = np.cos(u) * np.sin(v) * R
-    y = np.sin(u) * np.sin(v) * R
-    z = np.cos(v) * R
-    ax.plot_wireframe(x, y, z, color="orange")
-
+        plt.scatter(list(zip(*inside_e))[0], list(zip(*inside_e))[1], color='red')
     plt.show()
-
