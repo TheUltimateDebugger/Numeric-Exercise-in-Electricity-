@@ -48,9 +48,10 @@ class Electron:
         self.update_acceleration(0, 0, 0)
 
     def return_to_sphere(self, r):
-        self.x *= r / self.dist_from_zero()
-        self.y *= r / self.dist_from_zero()
-        self.z *= r / self.dist_from_zero()
+        d = self.dist_from_zero()
+        self.x *= r / d
+        self.y *= r / d
+        self.z *= r / d
 
     def update_location(self, t):
         self.x = self.x + self.v_x * t + 0.5 * self.a_x * t ** 2

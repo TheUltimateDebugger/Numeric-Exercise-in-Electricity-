@@ -12,7 +12,7 @@ N = 200
 # s
 T = 10 ** -3
 # T times
-LENGTH = 200
+LENGTH_B = 300
 
 
 
@@ -27,7 +27,7 @@ def simulate_B():
     for e in electrons:
         temp.append([e.x, e.y, e.z])
     locations.append(temp)
-    for i in range(LENGTH):
+    for i in range(LENGTH_B):
         update_field(electrons)
         for e in electrons:
             e.update_location(T)
@@ -79,7 +79,7 @@ def draw_b(result):
     outside_e = []
     inside_e = []
     for e in result:
-        if (e[0]**2 + e[1]**2 + e[2]**2)**0.5 >= R:
+        if (e[0]**2 + e[1]**2 + e[2]**2)**0.5 >= R*0.999:
             outside_e.append(e)
         else:
             inside_e.append(e)

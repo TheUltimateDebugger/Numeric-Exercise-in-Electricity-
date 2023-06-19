@@ -12,11 +12,10 @@ N = 200
 # s
 T = 10 ** -3
 # T times
-LENGTH = 200
+LENGTH_C = 300
 
 
 def simulate_C():
-    count = 0
     locations = []
     electrons = []
     for i in range(N):
@@ -26,12 +25,11 @@ def simulate_C():
     for e in electrons:
         temp.append([e.x, e.y, e.z])
     locations.append(temp)
-    for i in range(LENGTH):
+    for i in range(LENGTH_C):
         update_field(electrons)
         for e in electrons:
             e.update_location(T)
             if not is_in(e):
-                count += 1
                 e.return_to_sphere(R)
             e.reset_velocity()
             e.reset_acceleration()
@@ -40,7 +38,6 @@ def simulate_C():
             temp.append([e.x, e.y, e.z])
         locations.append(temp)
         # print("iteration: " + str(i))
-    print(count)
     return locations
 
 
@@ -79,7 +76,7 @@ def draw_c(result):
     outside_e = []
     inside_e = []
     for e in result:
-        if (e[0] ** 2 + e[1] ** 2 + e[2] ** 2) ** 0.5 >= R:
+        if (e[0] ** 2 + e[1] ** 2 + e[2] ** 2) ** 0.5 >= R*0.999:
             outside_e.append(e)
         else:
             inside_e.append(e)
