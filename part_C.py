@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt, patches
 
 import math
 import numpy as np
-from electron import Electron, update_field
+from electron import Electron, update_field, electrons_in_radius
 
 R = 1
 N = 200
@@ -67,6 +67,17 @@ def generate_electron_in_circle():
         electron.z = z
     return electron
 
+
+def draw_density_for_radius(locations):
+    radii = np.arange(0, R, 0.01)
+    num_of_electrons = []
+    for r in radii:
+        num_of_electrons.append(electrons_in_radius(locations, r)/(2*math.pi * r))
+    plt.plot(num_of_electrons, radii)
+    plt.title("Density of Electrons in Relation to the Radius")
+    plt.xlabel("Radius[m]")
+    plt.ylabel("Density")
+    plt.show()
 
 def draw_c(result):
     plt.figure(3)

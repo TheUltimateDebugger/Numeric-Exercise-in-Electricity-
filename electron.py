@@ -77,6 +77,16 @@ class Electron:
         self.v_z = self.v_z + self.a_z * t
 
 
+def dist_from_zero(e):
+    return (e[0] ** 2 + e[1] ** 2 + e[2] ** 2) ** 0.5
+def electrons_in_radius(locations, r):
+    count = 0
+    for e in locations:
+        if e.dist(e) <= r:
+            count += 1
+    return count
+
+
 def update_field(electrons):
     for e1 in electrons:
         for e2 in electrons:
