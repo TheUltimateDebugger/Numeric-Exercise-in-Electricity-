@@ -71,7 +71,7 @@ def generate_electron():
     return electron
 
 
-def draw_b(result):
+def draw_B(result):
     ax = plt.axes(projection='3d')
     outside_e = []
     inside_e = []

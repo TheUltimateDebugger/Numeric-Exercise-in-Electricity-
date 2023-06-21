@@ -12,7 +12,7 @@ N = 200
 # s
 T = 10 ** -3
 # T times
-LENGTH_D = 200
+LENGTH_D = 100
 
 MOV = 1.1
 

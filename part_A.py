@@ -19,7 +19,7 @@ Q = -1.602176634 * 10 ** (-19)
 M = 9.10938356 * 10 ** (-31)
 
 
-def simulate():
+def simulate_A():
     result = [(0, 0, 0)]
     e = Electron(0, 0, 0, 0, 0, 0, (E0 * Q) / M)
     for i in range(LENGTH):
@@ -29,7 +29,7 @@ def simulate():
         result.append(e.location())
     return result
 
-def draw_graph(result):
+def draw_A(result):
     graph = plt.subplot()
     plt.title("Electron Path")
     plt.xlabel("X")
