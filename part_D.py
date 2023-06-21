@@ -12,7 +12,7 @@ N = 200
 # s
 T = 10 ** -3
 # T times
-LENGTH_D = 10
+LENGTH_D = 200
 
 MOV = 1.1
 
@@ -94,6 +94,6 @@ def draw_D(result):
         print(outside_e)
     if inside_e:
         plt.scatter(list(zip(*inside_e))[0], list(zip(*inside_e))[1], color='red')
-    plt.text(-0.5, MOV*R, "corner 1: " + str(corners[0]) + " corner 2: " + str(corners[1]) + " corner 3 " + str(corners[2]) +
+    plt.text(-0.5, MOV*R, "corner 1: " + str(corners[0]) + " corner 2: " + str(corners[1]) + " corner 3: " + str(corners[2]) +
              " corner 4: " + str(corners[3]), color='blue',bbox = dict(facecolor = 'red', alpha = 0.5))
     plt.show()
