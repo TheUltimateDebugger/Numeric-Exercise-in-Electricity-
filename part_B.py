@@ -12,8 +12,7 @@ N = 200
 # s
 T = 10 ** -3
 # T times
-LENGTH_B = 300
-
+LENGTH_B = 500
 
 
 def simulate_B():
@@ -72,14 +71,12 @@ def generate_electron():
     return electron
 
 
-
-
 def draw_b(result):
     ax = plt.axes(projection='3d')
     outside_e = []
     inside_e = []
     for e in result:
-        if (e[0]**2 + e[1]**2 + e[2]**2)**0.5 >= R*0.999:
+        if (e[0] ** 2 + e[1] ** 2 + e[2] ** 2) ** 0.5 >= R * 0.99:
             outside_e.append(e)
         else:
             inside_e.append(e)
@@ -95,4 +92,3 @@ def draw_b(result):
     ax.plot_wireframe(x, y, z, color="orange")
 
     plt.show()
-

@@ -5,6 +5,7 @@ M = 9.10938356 * 10 ** (-31)
 # Coulomb's const
 K = 8.988 * 10 ** 9
 
+
 class Electron:
     def __init__(self, x=0, y=0, z=0, v_x=0, v_y=0, v_z=0, a_x=0, a_y=0, a_z=0):
         self.x = x
@@ -53,6 +54,20 @@ class Electron:
         self.y *= r / d
         self.z *= r / d
 
+    def is_outside_square(self, r):
+        return abs(self.x) >= r or abs(self.y) >= r or abs(self.z) >= r
+
+    def keep_in_square(self, r):
+        if abs(self.x) >= r:
+            self.x = self.x / abs(self.x) * r
+        if abs(self.y) >= r:
+            self.y = self.y / abs(self.y) * r
+        if abs(self.z) >= r:
+            self.z = self.z / abs(self.z) * r
+
+    def is_on_square(self, r):
+        return abs(self.x) == r or abs(self.y) == r or abs(self.z) == r
+
     def update_location(self, t):
         self.x = self.x + self.v_x * t + 0.5 * self.a_x * t ** 2
         self.y = self.y + self.v_y * t + 0.5 * self.a_y * t ** 2
@@ -61,11 +76,22 @@ class Electron:
         self.v_y = self.v_y + self.a_y * t
         self.v_z = self.v_z + self.a_z * t
 
+
 def update_field(electrons):
+    for e1 in electrons:
+        for e2 in electrons:
+            if e1 != e2:
+                d = e1.dist(e2)
+                e1.update_acceleration(e1.a_x + K * (e1.x - e2.x) / d * Q ** 2 / d ** 2 / M,
+                                       e1.a_y + K * (e1.y - e2.y) / d * Q ** 2 / d ** 2 / M,
+                                       e1.a_z + K * (e1.z - e2.z) / d * Q ** 2 / d ** 2 / M)
+
+
+def update_field_square_not_crush(electrons):
     for e1 in electrons:
         for e2 in electrons:
             if e1 != e2 and e1.dist(e2) > 0:
                 d = e1.dist(e2)
-                e1.update_acceleration(e1.a_x + K * (e1.x - e2.x)/d * Q ** 2 / d**2 / M,
-                                       e1.a_y + K * (e1.y - e2.y)/d * Q ** 2 / d**2 / M,
-                                       e1.a_z + K * (e1.z - e2.z)/d * Q ** 2 / d**2 / M)
+                e1.update_acceleration(e1.a_x + K * (e1.x - e2.x) / d * Q ** 2 / d ** 2 / M,
+                                       e1.a_y + K * (e1.y - e2.y) / d * Q ** 2 / d ** 2 / M,
+                                       e1.a_z + K * (e1.z - e2.z) / d * Q ** 2 / d ** 2 / M)
