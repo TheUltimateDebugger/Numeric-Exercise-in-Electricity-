@@ -12,7 +12,7 @@ N = 200
 # s
 T = 10 ** -3
 # T times
-LENGTH_C = 500
+LENGTH_C = 700
 
 
 def simulate_C():
@@ -74,9 +74,9 @@ def draw_density_for_radius(locations):
     for r in radii:
         num_of_electrons.append(Q * electrons_in_radius(locations, r) / (2 * math.pi * r))
     plt.scatter(radii, num_of_electrons)
-    plt.title("Density of Electrons in Relation to the Radius")
+    plt.title("Density of Charge in Relation to the Radius")
     plt.xlabel("Radius[m]")
-    plt.ylabel("Density[k/m^2]")
+    plt.ylabel("Charge Density[c/m^2]")
     plt.show()
 
 

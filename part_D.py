@@ -17,6 +17,30 @@ LENGTH_D = 500
 MOV = 1.1
 LIM = 2
 
+# def simulate_D():
+#     locations = []
+#     electrons = []
+#     for i in range(N):
+#         e = generate_electron_in_square()
+#         electrons.append(e)
+#     temp = []
+#     for e in electrons:
+#         temp.append([e.x, e.y, e.z])
+#     locations.append(temp)
+#     for i in range(LENGTH_D):
+#         update_field_square_not_crush(electrons)
+#         for e in electrons:
+#             e.update_location(T)
+#             e.keep_in_square(R)
+#             e.reset_velocity()
+#             e.reset_acceleration()
+#         temp = []
+#         for e in electrons:
+#             temp.append([e.x, e.y, e.z])
+#         locations.append(temp)
+#         # print("iteration: " + str(i))
+#     return locations
+
 def simulate_D():
     locations = []
     electrons = []
@@ -28,8 +52,8 @@ def simulate_D():
         temp.append([e.x, e.y, e.z])
     locations.append(temp)
     for i in range(LENGTH_D):
-        update_field_square_not_crush(electrons)
         for e in electrons:
+            e.update_field(electrons)
             e.update_location(T)
             e.keep_in_square(R)
             e.reset_velocity()

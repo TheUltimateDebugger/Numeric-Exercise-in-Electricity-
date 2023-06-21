@@ -18,15 +18,21 @@ if __name__ == '__main__':
     # print(str(locations1[len(locations1) - 1][0]/T))
     # draw_A(locations1)
     #
-    locations2 = simulate_B()
-    draw_potential_for_radius(locations2[LENGTH_B])
-    draw_B(locations2[0])
-    draw_B(locations2[LENGTH_B])
+    # locations2 = simulate_B()
+    # draw_potential_for_radius(locations2[LENGTH_B])
+    # draw_B(locations2[0])
+    # draw_B(locations2[LENGTH_B])
     #
-    # locations3 = simulate_C()
-    # draw_C(locations3[LENGTH_C])
-    # draw_density_for_radius(locations3[LENGTH_C])
+    locations3 = simulate_C()
+    draw_C(locations3[0])
+    draw_density_for_radius(locations3[0])
+    draw_C(locations3[LENGTH_C])
+    draw_density_for_radius(locations3[LENGTH_C])
     locations4 = simulate_D()
+    draw_D(locations4[0])
+    draw_D(locations4[LENGTH_D//4])
+    draw_D(locations4[2*LENGTH_D//4])
+    draw_D(locations4[3*LENGTH_D//4])
     draw_D(locations4[LENGTH_D])
 
 

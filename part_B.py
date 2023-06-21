@@ -14,7 +14,7 @@ N = 200
 # s
 T = 10 ** -3
 # T times
-LENGTH_B = 700
+LENGTH_B = 5000
 PROXIMITY = 0.9999
 
 

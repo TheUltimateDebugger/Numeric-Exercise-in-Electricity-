@@ -76,6 +76,13 @@ class Electron:
         self.v_y = self.v_y + self.a_y * t
         self.v_z = self.v_z + self.a_z * t
 
+    def update_field(self, electrons):
+        for e2 in electrons:
+            if self != e2:
+                d = self.dist(e2)
+                self.update_acceleration(self.a_x + K * (self.x - e2.x) / d * Q ** 2 / d ** 2 / M,
+                                       self.a_y + K * (self.y - e2.y) / d * Q ** 2 / d ** 2 / M,
+                                       self.a_z + K * (self.z - e2.z) / d * Q ** 2 / d ** 2 / M)
 def potential_at_point(point, electrons):
     result = 0
     for e in electrons:
