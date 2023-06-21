@@ -13,6 +13,7 @@ N = 200
 T = 10 ** -3
 # T times
 LENGTH_B = 500
+PROXIMITY = 0.9999
 
 
 def simulate_B():
@@ -26,12 +27,12 @@ def simulate_B():
     for e in electrons:
         temp.append([e.x, e.y, e.z])
     locations.append(temp)
+    how_many_on_the_sphere = []
     for i in range(LENGTH_B):
         update_field(electrons)
         for e in electrons:
             e.update_location(T)
             if not is_in(e):
-                count += 1
                 e.return_to_sphere(R)
             e.reset_velocity()
             e.reset_acceleration()
@@ -39,8 +40,9 @@ def simulate_B():
         for e in electrons:
             temp.append([e.x, e.y, e.z])
         locations.append(temp)
+        how_many_on_the_sphere.append(count_in_the_sphere(temp))
         # print("iteration: " + str(i))
-    print(count)
+    draw_graph_of_density(how_many_on_the_sphere)
     return locations
 
 
@@ -71,12 +73,44 @@ def generate_electron():
     return electron
 
 
+def is_on_the_sphere(e_location):
+    if (e_location[0] ** 2 + e_location[1]**2 + e_location[2] ** 2) ** 0.5 >= R * PROXIMITY:
+        return True
+    else:
+        return False
+
+
+def draw_graph_of_density(how_many_not_on_sphere):
+    count = 1
+    temp1 = []
+    temp2 = []
+    for iteration in how_many_not_on_sphere:
+        temp1.append(iteration)
+        count += 1
+        temp2.append(count)
+    plt.xlabel('Time[10^-3s]')
+    plt.ylabel('Proportion')
+    plt.title('The Proportion of the Electrons Inside the Sphere'
+              ' Depending on the Time')
+    plt.plot(temp2, temp1)
+    plt.show()
+
+
+def count_in_the_sphere(result):
+    count = 0
+    for e in result:
+        if not is_on_the_sphere(e):
+            count += 1
+    return count/N
+
+
+
 def draw_B(result):
     ax = plt.axes(projection='3d')
     outside_e = []
     inside_e = []
     for e in result:
-        if (e[0] ** 2 + e[1] ** 2 + e[2] ** 2) ** 0.5 >= R * 0.99:
+        if is_on_the_sphere(e):
             outside_e.append(e)
         else:
             inside_e.append(e)

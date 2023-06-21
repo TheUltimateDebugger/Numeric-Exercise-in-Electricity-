@@ -71,7 +71,7 @@ def generate_electron_in_circle():
 def draw_c(result):
     plt.figure(3)
     ax = plt.subplot()
-    circle1 = patches.Circle((0,0), radius=R, color='orange', fill=False)
+    circle1 = patches.Circle((0, 0), radius=R, color='orange', fill=False)
     ax.add_patch(circle1)
     outside_e = []
     inside_e = []
