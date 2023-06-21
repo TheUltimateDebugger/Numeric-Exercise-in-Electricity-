@@ -76,13 +76,21 @@ class Electron:
         self.v_y = self.v_y + self.a_y * t
         self.v_z = self.v_z + self.a_z * t
 
+def potential_at_point(point, electrons):
+    result = 0
+    for e in electrons:
+        result += Q * K / (((point[0] - e[0]) ** 2 + (point[1] - e[1]) ** 2 + (point[2] - e[2]) ** 2) ** 0.5)
+    return result
 
-def dist_from_zero(e):
+
+def dist(e):
     return (e[0] ** 2 + e[1] ** 2 + e[2] ** 2) ** 0.5
+
+
 def electrons_in_radius(locations, r):
     count = 0
     for e in locations:
-        if e.dist(e) <= r:
+        if dist(e) <= r:
             count += 1
     return count
 

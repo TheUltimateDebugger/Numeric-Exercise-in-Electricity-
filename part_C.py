@@ -5,14 +5,14 @@ from matplotlib import pyplot as plt, patches
 
 import math
 import numpy as np
-from electron import Electron, update_field, electrons_in_radius
+from electron import Electron, update_field, electrons_in_radius, Q
 
 R = 1
 N = 200
 # s
 T = 10 ** -3
 # T times
-LENGTH_C = 400
+LENGTH_C = 500
 
 
 def simulate_C():
@@ -69,17 +69,18 @@ def generate_electron_in_circle():
 
 
 def draw_density_for_radius(locations):
-    radii = np.arange(0, R, 0.01)
+    radii = np.arange(0, R + 0.01, 0.01)
     num_of_electrons = []
     for r in radii:
-        num_of_electrons.append(electrons_in_radius(locations, r)/(2*math.pi * r))
-    plt.plot(num_of_electrons, radii)
+        num_of_electrons.append(Q * electrons_in_radius(locations, r) / (2 * math.pi * r))
+    plt.scatter(radii, num_of_electrons)
     plt.title("Density of Electrons in Relation to the Radius")
     plt.xlabel("Radius[m]")
-    plt.ylabel("Density")
+    plt.ylabel("Density[k/m^2]")
     plt.show()
 
-def draw_c(result):
+
+def draw_C(result):
     plt.figure(3)
     ax = plt.subplot()
     circle1 = patches.Circle((0, 0), radius=R, color='orange', fill=False)
@@ -87,7 +88,7 @@ def draw_c(result):
     outside_e = []
     inside_e = []
     for e in result:
-        if (e[0] ** 2 + e[1] ** 2 + e[2] ** 2) ** 0.5 >= R*0.999:
+        if (e[0] ** 2 + e[1] ** 2 + e[2] ** 2) ** 0.5 >= R * 0.999:
             outside_e.append(e)
         else:
             inside_e.append(e)

@@ -7,14 +7,14 @@ import math
 import numpy as np
 from matplotlib.pyplot import show
 
-from electron import Electron, update_field
+from electron import Electron, update_field, potential_at_point
 
 R = 1
 N = 200
 # s
 T = 10 ** -3
 # T times
-LENGTH_B = 500
+LENGTH_B = 700
 PROXIMITY = 0.9999
 
 
@@ -76,7 +76,7 @@ def generate_electron():
 
 
 def is_on_the_sphere(e_location):
-    if (e_location[0] ** 2 + e_location[1]**2 + e_location[2] ** 2) ** 0.5 >= R * PROXIMITY:
+    if (e_location[0] ** 2 + e_location[1] ** 2 + e_location[2] ** 2) ** 0.5 >= R * PROXIMITY:
         return True
     else:
         return False
@@ -103,8 +103,19 @@ def count_in_the_sphere(result):
     for e in result:
         if not is_on_the_sphere(e):
             count += 1
-    return count/N
+    return count / N
 
+
+def draw_potential_for_radius(locations):
+    radii = np.arange(0, 10*R, 0.05)
+    num_of_electrons = []
+    for r in radii:
+        num_of_electrons.append(potential_at_point([r, 0, 0], locations))
+    plt.scatter(radii, num_of_electrons)
+    plt.title("Potential in Relation to Radius")
+    plt.xlabel("Radius[m]")
+    plt.ylabel("Electric Potential[Volt]")
+    plt.show()
 
 
 def draw_B(result):
