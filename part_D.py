@@ -12,10 +12,10 @@ N = 200
 # s
 T = 10 ** -3
 # T times
-LENGTH_D = 100
+LENGTH_D = 500
 
 MOV = 1.1
-
+LIM = 2
 
 def simulate_D():
     locations = []
@@ -85,7 +85,7 @@ def draw_D(result):
                 corners[1] += 1
             if e[0] == -R and e[1] == -R:
                 corners[2] += 1
-            if e[0] == R and e[1] == R:
+            if e[0] == R and e[1] == -R:
                 corners[3] += 1
         else:
             inside_e.append(e)
@@ -94,6 +94,10 @@ def draw_D(result):
         print(outside_e)
     if inside_e:
         plt.scatter(list(zip(*inside_e))[0], list(zip(*inside_e))[1], color='red')
-    plt.text(-0.5, MOV*R, "corner 1: " + str(corners[0]) + " corner 2: " + str(corners[1]) + " corner 3: " + str(corners[2]) +
-             " corner 4: " + str(corners[3]), color='blue',bbox = dict(facecolor = 'red', alpha = 0.5))
+    plt.title("Electrons Inside a Conducting Square")
+    plt.xlabel("X[m]")
+    plt.ylabel("Y[m]")
+    plt.axis([-LIM, LIM, -LIM, LIM])
+    plt.text(MOV*R, 0, "Electrons in (1, 1): " + str(corners[0]) + "\nElectrons in (-1, 1): " + str(corners[1]) + "\nElectrons in (-1, -1): " + str(corners[2]) +
+             "\nElectrons in (1, -1): " + str(corners[3]), color='blue',bbox = dict(facecolor = 'red', alpha = 0.5))
     plt.show()

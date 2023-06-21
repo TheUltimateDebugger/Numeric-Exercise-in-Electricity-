@@ -12,7 +12,7 @@ N = 200
 # s
 T = 10 ** -3
 # T times
-LENGTH_C = 300
+LENGTH_C = 400
 
 
 def simulate_C():
@@ -84,4 +84,7 @@ def draw_c(result):
         plt.scatter(list(zip(*outside_e))[0], list(zip(*outside_e))[1], color='green')
     if inside_e:
         plt.scatter(list(zip(*inside_e))[0], list(zip(*inside_e))[1], color='red')
+    plt.title("Electrons Inside a Conducting Disk")
+    plt.xlabel("X[m]")
+    plt.ylabel("Y[m]")
     plt.show()

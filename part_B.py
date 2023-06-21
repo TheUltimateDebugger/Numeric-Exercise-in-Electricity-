@@ -5,6 +5,8 @@ from matplotlib import pyplot as plt
 
 import math
 import numpy as np
+from matplotlib.pyplot import show
+
 from electron import Electron, update_field
 
 R = 1
@@ -124,5 +126,8 @@ def draw_B(result):
     y = np.sin(u) * np.sin(v) * R
     z = np.cos(v) * R
     ax.plot_wireframe(x, y, z, color="orange")
-
+    ax.set_xlabel("X[m]", fontsize=12)
+    ax.set_ylabel("Y[m]", fontsize=12)
+    ax.set_zlabel("Z[m]", fontsize=12)
+    plt.title("Electrons Inside a Sphere")
     plt.show()

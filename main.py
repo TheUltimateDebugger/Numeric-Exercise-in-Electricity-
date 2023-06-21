@@ -13,16 +13,16 @@ def get_avg_dist(n):
 
 
 if __name__ == '__main__':
-    # locations1 = simulate_A()
-    # print(str(locations1[len(locations1) - 1][0]/T))
-    # draw_A(locations1)
+    locations1 = simulate_A()
+    print(str(locations1[len(locations1) - 1][0]/T))
+    draw_A(locations1)
 
     locations2 = simulate_B()
     draw_B(locations2[0])
     draw_B(locations2[LENGTH_B])
-    #
-    # locations3 = simulate_C()
-    # draw_c(locations3[LENGTH_C])
+
+    locations3 = simulate_C()
+    draw_c(locations3[LENGTH_C])
 
     locations4 = simulate_D()
     draw_D(locations4[LENGTH_D])

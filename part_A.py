@@ -3,6 +3,7 @@ import math
 import random
 
 from matplotlib import pyplot as plt
+from matplotlib.pyplot import show
 
 from electron import Electron
 
@@ -32,8 +33,8 @@ def simulate_A():
 def draw_A(result):
     graph = plt.subplot()
     plt.title("Electron Path")
-    plt.xlabel("X")
-    plt.ylabel("Y")
+    plt.xlabel("X[m]")
+    plt.ylabel("Y[m]")
     graph.scatter(list(zip(*result))[0], list(zip(*result))[1])
     graph.scatter(result[0][0], result[0][1], color="red")
     graph.scatter(result[len(result)-1][0], result[len(result)-1][1], color="yellow")
