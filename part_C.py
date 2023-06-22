@@ -1,21 +1,20 @@
-import random
-
-import numpy as np
 from matplotlib import pyplot as plt, patches
 
 import math
 import numpy as np
-from electron import Electron, update_field, electrons_in_radius, Q
+from electron import Electron, update_field, Q, electrons_in_ring
 
+# radius of circle M
 R = 1
+# number of electrons
 N = 200
 # s
 T = 10 ** -3
 # T times
-LENGTH_C = 700
+LENGTH_C = 500
 
 
-def simulate_C():
+def simulate_c():
     locations = []
     electrons = []
     for i in range(N):
@@ -69,18 +68,24 @@ def generate_electron_in_circle():
 
 
 def draw_density_for_radius(locations):
-    radii = np.arange(0, R + 0.01, 0.01)
-    num_of_electrons = []
-    for r in radii:
-        num_of_electrons.append(Q * electrons_in_radius(locations, r) / (2 * math.pi * r))
-    plt.scatter(radii, num_of_electrons)
+    radii = np.arange(0, R+R/8, R/8)
+    radii2 = np.arange(0, R, R/100)
+    function = (Q*N)/(2*math.pi*R)/(R**2-radii2**2)**0.5
+    density = []
+    x_axis = []
+    for i in range(8):
+        density.append(Q * electrons_in_ring(locations, radii[i], radii[i+1]) /
+                       (math.pi * radii[i+1]**2 - math.pi * radii[i]**2))
+        x_axis.append((radii[i] + radii[i+1])/2)
+    plt.scatter(x_axis, density)
     plt.title("Density of Charge in Relation to the Radius")
     plt.xlabel("Radius[m]")
     plt.ylabel("Charge Density[c/m^2]")
+    plt.plot(radii2, function, color='green')
     plt.show()
 
 
-def draw_C(result):
+def draw_c(result):
     plt.figure(3)
     ax = plt.subplot()
     circle1 = patches.Circle((0, 0), radius=R, color='orange', fill=False)

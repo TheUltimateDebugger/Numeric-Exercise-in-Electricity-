@@ -81,8 +81,10 @@ class Electron:
             if self != e2:
                 d = self.dist(e2)
                 self.update_acceleration(self.a_x + K * (self.x - e2.x) / d * Q ** 2 / d ** 2 / M,
-                                       self.a_y + K * (self.y - e2.y) / d * Q ** 2 / d ** 2 / M,
-                                       self.a_z + K * (self.z - e2.z) / d * Q ** 2 / d ** 2 / M)
+                                         self.a_y + K * (self.y - e2.y) / d * Q ** 2 / d ** 2 / M,
+                                         self.a_z + K * (self.z - e2.z) / d * Q ** 2 / d ** 2 / M)
+
+
 def potential_at_point(point, electrons):
     result = 0
     for e in electrons:
@@ -98,6 +100,14 @@ def electrons_in_radius(locations, r):
     count = 0
     for e in locations:
         if dist(e) <= r:
+            count += 1
+    return count
+
+
+def electrons_in_ring(locations, r1, r2):
+    count = 0
+    for e in locations:
+        if r1 <= dist(e) <= r2:
             count += 1
     return count
 

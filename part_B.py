@@ -1,25 +1,21 @@
-import random
-
-import numpy as np
 from matplotlib import pyplot as plt
-
-import math
 import numpy as np
-from matplotlib.pyplot import show
 
 from electron import Electron, update_field, potential_at_point
 
+# radius of sphere in M
 R = 1
+# number of electrons
 N = 200
 # s
 T = 10 ** -3
 # T times
-LENGTH_B = 5000
+LENGTH_B = 500
+# how much close the electrons needs to be to get counted as outside
 PROXIMITY = 0.9999
 
 
-def simulate_B():
-    count = 0
+def simulate_b():
     locations = []
     electrons = []
     for i in range(N):
@@ -118,7 +114,7 @@ def draw_potential_for_radius(locations):
     plt.show()
 
 
-def draw_B(result):
+def draw_b(result):
     ax = plt.axes(projection='3d')
     outside_e = []
     inside_e = []

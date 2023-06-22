@@ -5,7 +5,7 @@ import random
 from matplotlib import pyplot as plt
 from matplotlib.pyplot import show
 
-from electron import Electron
+from electron import Electron, Q
 
 E0 = 30
 # m/s
@@ -18,7 +18,7 @@ LENGTH = 100
 M = 9.10938356 * 10 ** (-31)
 
 
-def simulate_A():
+def simulate_a():
     result = [(0, 0, 0)]
     e = Electron(0, 0, 0, 0, 0, 0, (E0 * Q) / M)
     for i in range(LENGTH):
@@ -28,14 +28,15 @@ def simulate_A():
         result.append(e.location())
     return result
 
-def draw_A(result):
+
+def draw_a(result):
     graph = plt.subplot()
     plt.title("Electron Path")
     plt.xlabel("X[m]")
     plt.ylabel("Y[m]")
     graph.scatter(list(zip(*result))[0], list(zip(*result))[1])
     graph.scatter(result[0][0], result[0][1], color="red")
-    graph.scatter(result[len(result)-1][0], result[len(result)-1][1], color="yellow")
-    for i in range(len(result)-1):
-        graph.plot([result[i][0], result[i+1][0]], [result[i][1], result[i+1][1]], color="blue", linestyle="--")
+    graph.scatter(result[len(result) - 1][0], result[len(result) - 1][1], color="yellow")
+    for i in range(len(result) - 1):
+        graph.plot([result[i][0], result[i + 1][0]], [result[i][1], result[i + 1][1]], color="blue", linestyle="--")
     plt.show()
